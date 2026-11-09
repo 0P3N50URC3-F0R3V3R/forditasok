@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXNET - Magyarítás Letöltések</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(90deg, #2e2e2e, #1a1a1a);
+            text-align: center;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px #000;
+        }
+
+        header h1 {
+            color: #00c3ff;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .game-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 18px rgba(0,255,255,0.2);
+        }
+
+        .game-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .cover {
+            flex: 1 1 220px;
+            max-width: 260px;
+        }
+
+        .cover img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.6);
+        }
+
+        .details {
+            flex: 3 1 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .details h2 {
+            color: #00c3ff;
+            margin: 0 0 0.5rem;
+        }
+
+        .details p {
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .download-btn {
+            align-self: flex-start;
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: #00c3ff;
+            color: #111;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #009ed8;
+            color: #fff;
+        }
+
+        .file-label {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            padding: 1rem;
+            background: #141414;
+            border-top: 1px solid #333;
+        }
+
+        .screenshots img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .screenshots img:hover {
+            transform: scale(1.05);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .lightbox.visible {
+            display: flex;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 700px) {
+            .game-content { flex-direction: column; align-items: center; }
+            .cover { max-width: 100%; }
+            .screenshots { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .search-container {
+            margin-top: 1rem;
+        }
+
+        #search {
+            width: 90%;
+            max-width: 400px;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+            background: #222;
+            color: #eee;
+            font-size: 1rem;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+
+        #search:focus {
+            background: #1b1b1b;
+            box-shadow: 0 0 6px rgba(0,195,255,0.4);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nexnet - Magyarítás Letöltések</h1>
+    </header>
+<div class="game-content" style="max-width:1024px; margin-left:auto; margin-right:auto;">
+Az itt található magyarítások nagyobb százalékban kézzel készültek, de tartalmaznak részint gépi fordítást is, viszont legnagyobbnagyrészt manuálisan lektorált, és több személy által tesztelésre került fordítások. Elírások ennek ellenére lehetnek, vagy félrefogalmazások, bár igyekezünk elkerülni amennyire lehet ezeket. A Magyarításokat szabadon letöltheted, módosíthatod vagy terjesztheted, de ne állítsd hogy egyedül a te műved volt!<br>
+</div>
+
+    <center><div class="search-container">
+        <input type="text" id="search" placeholder="Keresés a fordítások között...">
+    </div>
+
+    <p id="noResults" style="display:none; text-align:center; color:#888; margin-top:1rem;">
+    Nincs találat a keresésre.
+    </p></center>
+    <main id="games"></main>
+
+    <footer>
+        &copy; <span id="year"></span> Nexnet - Magyar Fordítások | Készítette: P373R | Közremúködtek: Mosquito, SlejmUr, Sikozu
+    </footer>
+
+    <div id="lightbox" class="lightbox">
+        <img src="" alt="Nagyított kép">
+    </div>
+
+<script>
+const downloads = [
+    {
+        game: "Murderous Pursuits - (100% Elkészült)",
+        file: "1-7-0-Magyar-Beta5.rar",
+        file2: "Murderous Pursuits 1-7-0-Magyar-Beta5-Dediserver.rar",
+        file2Desc: "Magyarítás a Dedikált Szerverhez",
+        path: "downloads/Murderous Pursuits 1-7-0-Magyar-Beta5.rar",
+        path2: "downloads/Murderous Pursuits 1-7-0-Magyar-Beta5-Dediserver.rar",
+        desc: "A Murderous Pursuits egy viktoriánus Steampunk stílusú, lopakodásra épülő multiplayer játék, ahol a célod az, hogy más játékosokat likvidálj, miközben te magad is a vadászat célpontja vagy. A diszkréció, az álcázás és a megfelelő pillanat kiválasztása a kulcs a győzelemhez.\n\nEz a magyarítás a 1.7.0 verzióhoz készült, és a játék teljes szövegkészletét lefordítja magyar nyelvre: menük, küldetésleírások, párbeszédek és egyéb szövegek egyaránt magyarul olvashatók. A csomag tartalmaz egy telepítési útmutatót is az archívumban.\n\nTeljes magyar fordítás, az 1.7.0 verzióhoz. (2025)\n\nFordították: P373R, Mosquito\n\nFrissítés - 2025.11.24. : Dedikált szerver-magyarítás hozzáadva.",
+        cover: "images/murderous_cover.jpg",
+        screens: [
+            "images/murderous_1.jpg",
+            "images/murderous_2.jpg",
+            "images/murderous_3.jpg",
+            "images/murderous_4.jpg"
+        ]
+    },
+    {
+        game: "Barony 4.2.1 - (100% Elkészült, Gemini + Kézzel lektorált)",
+        file: "Barony 4-2-1.rar",
+        path: "downloads/Barony 4-2-1.rar",
+        desc: "Készülj fel a végső belsős nézetű roguelike kihívásra! Most már anyanyelven is elmerülhetsz a kazamaták sötét titkaiban. Rendszerinformációk \nMűfaj (Genre): First-Person Roguelike, Dungeon Crawler, RPG\nJáték motor (Engine): Saját fejlesztésű C++ engine (Retro-stílusú voxel grafika)\nNyelv: Teljes magyarítás (Közösségi projekt)\n\nA Lore: Hamlet átka \nHamlet városa felett egy gonosz lich, Baron Herx vette át az uralmat, aki a mélyben rejtőzködik. A te feladatod (és társaidé), hogy leereszkedjetek a procedurálisan generált labirintusokba, legyőzzétek a csapdákat, szörnyeket és végül magát a Bárót. Vigyázz: a halál végleges, és minden sarkon egy újabb elhibázott lépés vár!\n\nFontos Megjegyzés \nA magyarítás működhet más verziókon is, de semmi garancia nincs rá. A Magyarítás a 4.2.1 GOG verzióhoz készült. Teljes magyar fordítás, az 4.2.1 verzióhoz. (2026) Gemini + Lektorálás kézzel volt, kisebb hibák és szövegtúllógások előfordulhatnak, bár nem sok.\n\nFordították: P373R, Gamini\n",
+        cover: "images/barony_cover.jpg",
+        screens: [
+            "images/barony_1.jpg",
+            "images/barony_2.jpg",
+            "images/barony_3.jpg",
+            "images/barony_4.jpg"
+        ]
+    },
+    {
+        game: "Pummel Party - (100% Elkészült)",
+        file: "PummelParty-HUN-1-14-1j-HUN-B9.rar",
+        path: "downloads/PummelParty-HUN-1-14-1j-HUN-B9.rar",
+        desc: "A Pummel Party egy őrült, többjátékos party játék, ahol barátok és ellenségek egyaránt próbálnak túlélni különféle minijátékokat, csapdákat és fegyveres összecsapásokat. A játékmenet a klasszikus táblás játékok és a kaotikus minijátékok keveréke, humorral fűszerezve.\n\nA magyarítás az alapjáték 1.14.1j verziójához készült, és tartalmazza az összes játékon belüli szöveget, menüelemet és feliratot. Emellett kijavít néhány korábbi fordítási hibát a korábbi fordításokból és frissítést is tartalmaz. Részletes telepítési útmutató az archívumban található.\n\nFordították: P373R, Mosquito, BemBee(Lektorálás) \n\nJavítás Beta 9 - 2025.11.21: Ékezetek és mondatszerkezeti hibák javítva. Köszi a helpet BemBee.",
+        cover: "images/pummel_cover.jpg",
+        screens: [
+            "images/pummel_1.jpg",
+            "images/pummel_2.jpg",
+            "images/pummel_3.jpg",
+            "images/pummel_4.jpg"
+        ]
+    },
+    {
+        game: "Windward - (~98% Elkészült)",
+        file: "Windward-HUN-2025-UPDATE3.rar",
+        path: "downloads/Windward-HUN-2025-UPDATE3.rar",
+        desc: "A Windward egy felfedezésre és hajózásra épülő sandbox akciójáték, amelyben saját hajóddal járhatod be a procedurálisan generált világot, kereskedhetsz, harcolhatsz kalózokkal vagy akár birodalmakat építhetsz. Egyedül és kooperatív módban is élvezetes, nyugodt, mégis taktikus játék.\n\nA magyar fordítás a jelenlegi 2025-ös verzióhoz készült, de ez valójában már évek óta az utolsó 2017 es verzió, mert azóta nem frissült; és teljes szöveges lokalizációt nyújt: küldetések, tárgyak, városnevek, kezelőfelület és párbeszédek egyaránt magyarul jelennek meg. A csomag tartalmazza a telepítési útmutatót is.\n\nA Fordítás azért 98% mert néhány szerver oldali elem nem fordítható.\n\nFordították: P373R, SlejmUr",
+        cover: "images/windward_cover.jpg",
+        screens: [
+            "images/windward_1.jpg",
+            "images/windward_2.jpg",
+            "images/windward_3.jpg",
+            "images/windward_4.jpg"
+        ]
+    },
+    {
+        game: "Escape from Tarkov - SPT Emulátor fordítás 3.10.x verziókhoz - (100% Elkészült, Lektorálva ~60-70%)",
+        file: "SPT-Tarkov-HUN-3-10-x.rar",
+        path: "downloads/SPT-Tarkov-HUN-3-10-x.rar",
+        desc: "Ez a csomag a *Escape from Tarkov* egyjátékos, offline emulátorához (SPT - Single Player Tarkov) készült, a 3.10.x verzióhoz. A fordítás a játék szövegkészletét magyarítja, beleértve a menüket, tárgyneveket, küldetéseket, párbeszédeket és leírásokat.\n\nA hiányzó fordítás része ami még angol volt(Az alapfelállás szerint 40% magyar volt a többi angol...); mesterséges intelligencia (DeepL) segítségével készült (A többi 60%), majd manuálisan kb annak a szövegei 50%-ban lettek lektorálva és javítva, így kifejezetten olvasható, természetes magyar szöveget kínál. Így kijön kb a 100% os fordítás, de nem tökéletes még. Fontos: ez a magyarítás **csak szerver oldali**, tehát nem szükséges, hogy minden játékosnál telepítve legyen – elegendő, ha a szerveren található. Csak a 3.10.x verzióval kompatibilis a fordítás, így újabb verziókhoz nem használható! Legalábbis nem ajánlott. Telepítés: olvasd el az olvassel.txt fájlt a magyarításban amit letöltesz.\n\nFIGYELEM! A FORDÍTÁS TELJES UGYAN, DE EZ A MAGYARÍTÁS MÉG **NEM** TELJESEN LEKTORÁLT! HIBÁKAT TARTALMAZHAT ÉS FÉLREFORDÍTÁSOKAT! ENNEK TUDATÁBAN TÖLTSD LE ÉS HASZNÁLD! A FIKA MOD MAGYARÍTÁSÁT NEM TARTALMAZZA A FORDÍTÁS! \n\nFordítják: P373R, Sikozu - és persze az alapfordítás eredeti SPT szerver oldali fordítói.",
+        cover: "images/tarkov_cover.jpg",
+        screens: [
+            "images/tarkov_1.jpg",
+            "images/tarkov_2.jpg",
+            "images/tarkov_3.jpg",
+            "images/tarkov_4.jpg"
+        ]
+    }
+];
+
+function el(tag, props, children) {
+    const e = document.createElement(tag);
+    Object.assign(e, props || {});
+    (children || []).forEach(c => e.append(c));
+    return e;
+}
+
+function nl2br(text) {
+    const frag = document.createDocumentFragment();
+    text.split(/\r?\n/).forEach((line, i) => {
+        if (i) frag.append(document.createElement('br'));
+        frag.append(line);
+    });
+    return frag;
+}
+
+function downloadBlock(href, label, fileLabel, fileName) {
+    const a = el('a', { className: 'download-btn', href: encodeURI(href) });
+    a.setAttribute('download', '');
+    a.append(label);
+    return el('div', {}, [
+        a,
+        el('div', { className: 'file-label', textContent: fileLabel + fileName })
+    ]);
+}
+
+function buildCard(d) {
+    const details = el('div', { className: 'details' }, [
+        el('div', {}, [
+            el('h2', { textContent: d.game }),
+            el('p', {}, [nl2br(d.desc)])
+        ]),
+        downloadBlock(d.path, 'Letöltés', 'Fájl: ', d.file)
+    ]);
+    if (d.file2) {
+        details.append(downloadBlock(d.path2, nl2br(d.file2Desc), 'Fájl 2: ', d.file2));
+    }
+
+    const content = el('div', { className: 'game-content' }, [
+        el('div', { className: 'cover' }, [
+            el('img', { src: d.cover, alt: d.game + ' borító' })
+        ]),
+        details
+    ]);
+
+    const card = el('div', { className: 'game-card' }, [content]);
+    if (d.screens && d.screens.length) {
+        card.append(el('div', { className: 'screenshots' },
+            d.screens.slice(0, 4).map(src =>
+                el('img', { src, alt: 'Képernyőkép', className: 'screenshot' }))));
+    }
+    return card;
+}
+
+const main = document.getElementById('games');
+downloads.forEach(d => main.append(buildCard(d)));
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function normalizeText(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+              .normalize('NFD')
+              .replace(/[̀-ͯ]/g, '')
+              .replace(/\s+/g, ' ')
+              .trim();
+}
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+document.querySelectorAll('.screenshot').forEach(img => {
+    img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('visible');
+    });
+});
+function closeLightbox() {
+    lightbox.classList.remove('visible');
+    lightboxImg.removeAttribute('src');
+}
+lightbox.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+});
+
+const searchInput = document.getElementById('search');
+const cards = Array.from(document.querySelectorAll('.game-card'));
+const noResults = document.getElementById('noResults');
+
+function performSearch() {
+    const query = normalizeText(searchInput.value);
+
+    if (query === '') {
+        cards.forEach(card => card.style.display = '');
+        noResults.style.display = 'none';
+        return;
+    }
+
+    let found = false;
+    cards.forEach(card => {
+        const match = normalizeText(card.textContent).includes(query);
+        card.style.display = match ? '' : 'none';
+        if (match) found = true;
+    });
+    noResults.style.display = found ? 'none' : 'block';
+}
+
+searchInput.addEventListener('input', performSearch);
+</script>
+
+</body>
+</html>
