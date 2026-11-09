@@ -1,4 +1,4 @@
-# Nexnet - Magyarítás Letöltések
+# Magyarítás Letöltések
 
 Magyar játékfordítások gyűjteménye egy egyszerű, statikus letöltőoldallal. Az oldal tiszta HTML/CSS/JS, szerver nélkül működik, így GitHub Pages-en is futtatható.
 
