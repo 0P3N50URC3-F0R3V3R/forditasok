@@ -2,6 +2,8 @@
 
 Magyar játékfordítások gyűjteménye egy egyszerű, statikus letöltőoldallal. Az oldal tiszta HTML/CSS/JS, szerver nélkül működik, így GitHub Pages-en is futtatható.
 
+Az oldal itt található: https://0p3n50urc3-f0r3v3r.github.io/forditasok/
+
 ## Elérhető magyarítások
 
 | Játék | Verzió | Állapot | Fordítók |
